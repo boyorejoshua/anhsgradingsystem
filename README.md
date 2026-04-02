@@ -1,20 +1,11 @@
 # ANHS E-Class Record System
 
-GitHub-ready refactored version of the approved single-file build.
+GitHub-ready refactored build from the approved single-file baseline.
 
 ## Structure
+- index.html
+- assets/css/style.css
+- assets/js/main.js
 
-- `index.html` — main app shell
-- `assets/css/style.css` — all styles
-- `assets/js/main.js` — all app logic
-
-## Deployment
-
-Upload the full folder structure to GitHub exactly as-is.
-
-## Notes
-
-- `index.html` expects:
-  - `assets/css/style.css`
-  - `assets/js/main.js`
-- Keep `index.html` and the `assets` folder together.
+## Important
+Upload the whole folder structure exactly as-is.
