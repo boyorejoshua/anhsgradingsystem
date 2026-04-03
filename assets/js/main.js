@@ -348,7 +348,7 @@ function renderSetup(){
   <div class="ebar"><span class="elbl">💾 File:</span>
     <label class="btn bo bsm" style="cursor:pointer">📂 Load File<input type="file" accept=".json" style="display:none" onchange="loadFile(this)"></label>
     <button class="btn bg bsm" onclick="saveSetupAndFile()">💾 Save & Export</button>
-    <div class="sp"></div><span style="font-size:10px;color:var(--tx3)">Auto-saves in browser. Export JSON as backup to restore on any computer.</span>
+    <div class="sp"></div><span style="font-size:.72rem;color:var(--tx3)">Auto-saves in browser. Export JSON as backup to restore on any computer.</span>
   </div>
   <div class="card">
     <div class="ch"><div><div class="ct">School Information</div><div class="cs">Appears on all reports and exports</div></div>
@@ -393,7 +393,7 @@ function renderHPS(){
   const cd=getCD();let html='';
   for(let q=1;q<=4;q++){
     const h=cd.hps[q];
-    html+=`<div style="margin-bottom:17px"><div style="font-size:11px;font-weight:600;margin-bottom:8px"><span class="tag tb">Quarter ${q}</span></div>
+    html+=`<div style="margin-bottom:17px"><div style="font-size:.82rem;font-weight:600;margin-bottom:8px"><span class="tag tb">Quarter ${q}</span></div>
       <div style="margin-bottom:7px"><div class="lbl" style="margin-bottom:4px">Written Works HPS (WW1–WW10)</div>
         <div class="hps10">${Array.from({length:10},(_,i)=>`<div class="hpl">WW${i+1}</div>`).join('')}</div>
         <div class="hps10">${Array.from({length:10},(_,i)=>`<input class="hpi" type="number" min="0" value="${h.ww[i]||''}" placeholder="—" onchange="setHPS(${q},'ww',${i},this.value)">`).join('')}</div>
@@ -495,7 +495,7 @@ function renderGradeTable(){
       <td class="cc ${isMissingGrade(c.quarterly)?'missing-grade':(c.quarterly?(c.quarterly>=75?'pass':'fail'): '')}" id="qg_${q}_${sid}">${c.quarterly||''}</td>
     </tr>`;
   });
-  wrap.innerHTML=`<div style="font-size:10px;color:var(--tx3);margin-bottom:7px">${getCD().school.subject||'—'} · Q${q} · ${APP.ac.grade} ${APP.ac.section}</div>
+  wrap.innerHTML=`<div style="font-size:.72rem;color:var(--tx3);margin-bottom:7px">${getCD().school.subject||'—'} · Q${q} · ${APP.ac.grade} ${APP.ac.section}</div>
     <div class="twrap"><table class="gtbl">${th}<tbody>${hr}${body}</tbody></table></div>`;
 }
 function setGr(name,q,cat,idx,val){
@@ -592,7 +592,7 @@ function renderBulkEntry(){
       <button class="btn bp" onclick="loadBulk()">Load</button>
       <button class="btn bg" onclick="saveBulk()">Save Grades</button>
     </div>
-    <div id="bHps" style="font-size:10px;color:var(--tx3);margin-bottom:8px"></div>
+    <div id="bHps" style="font-size:.72rem;color:var(--tx3);margin-bottom:8px"></div>
   </div>
   <div class="card" style="padding:14px"><div id="bulkTbl"><div class="ws"><h2>Select filters above</h2></div></div></div>
   <div id="bulkAnal" style="display:none">
@@ -621,24 +621,24 @@ function loadBulk(){
     let cur=cat==='WW'?(g.ww&&g.ww[idx]!==null?g.ww[idx]:''):cat==='PT'?(g.pt&&g.pt[idx]!==null?g.pt[idx]:''):(g.qa!==null&&g.qa!==undefined?g.qa:'');
     const gClass = s.g === 'male' ? 'male' : 'female';const sid=s.name.replace(/[^a-zA-Z0-9]/g,'_');
     rows+=`<tr>
-      <td style="padding:5px 6px;font-size:10px;color:var(--tx3);border:1px solid var(--bdr);text-align:center;width:26px">${i+1}</td>
-      <td class="bulk-name ${gClass}" style="padding:5px 7px;font-size:11px;font-weight:500;border:1px solid var(--bdr)">${escH(s.name)}</td>
-      <td style="padding:0;border:1px solid var(--bdr);width:68px;text-align:center">
+      <td style="padding:5px 6px;font-size:.72rem;color:var(--tx3);border:1px solid var(--bdr);text-align:center;width:26px">${i+1}</td>
+      <td class="bulk-name ${gClass}" style="padding:5px 7px;font-size:.82rem;font-weight:500;border:1px solid var(--bdr)">${escH(s.name)}</td>
+      <td style="padding:0;border:1px solid var(--bdr);width:4.4rem;text-align:center">
         <input type="number" min="0" ${hv?`max="${hv}"`:''}
   value="${cur}" data-name="${escH(s.name)}" data-q="${q}" data-cat="${cat}" data-idx="${idx}"
   class="bulk-score-input ${isMissingGrade(cur)?'missing-grade-input':''}"
   onchange="bPrev(this,'bp_${sid}',${hv||0})">
       </td>
-      <td id="bp_${sid}" style="padding:4px;font-size:10px;color:var(--tx3);border:1px solid var(--bdr);background:var(--surf2);text-align:center;width:48px">${hv&&cur!==''?r2((parseFloat(cur)/hv)*100)+'%':''}</td>
+      <td id="bp_${sid}" style="padding:4px;font-size:.72rem;color:var(--tx3);border:1px solid var(--bdr);background:var(--surf2);text-align:center;width:3.2rem">${hv&&cur!==''?r2((parseFloat(cur)/hv)*100)+'%':''}</td>
     </tr>`;
   });
-  document.getElementById('bulkTbl').innerHTML=`<div style="font-size:10px;color:var(--tx3);margin-bottom:8px">Q${q} · ${lbl} · ${stu.length} students</div>
-    <div style="overflow-x:auto"><table style="border-collapse:collapse;width:100%;max-width:440px">
+  document.getElementById('bulkTbl').innerHTML=`<div style="font-size:.72rem;color:var(--tx3);margin-bottom:8px">Q${q} · ${lbl} · ${stu.length} students</div>
+    <div style="overflow-x:auto"><table style="border-collapse:collapse;width:100%;min-width:32rem">
       <thead><tr>
-        <th style="padding:5px;font-size:10px;background:var(--surf2);border:1px solid var(--bdr)">#</th>
-        <th style="padding:5px 7px;font-size:10px;background:var(--surf2);border:1px solid var(--bdr);text-align:left">Name</th>
-        <th style="padding:5px;font-size:10px;background:var(--surf2);border:1px solid var(--bdr)">${lbl}</th>
-        <th style="padding:5px;font-size:10px;background:var(--surf2);border:1px solid var(--bdr)">%</th>
+        <th style="padding:5px;font-size:.72rem;background:var(--surf2);border:1px solid var(--bdr)">#</th>
+        <th style="padding:5px 7px;font-size:.72rem;background:var(--surf2);border:1px solid var(--bdr);text-align:left">Name</th>
+        <th style="padding:5px;font-size:.72rem;background:var(--surf2);border:1px solid var(--bdr)">${lbl}</th>
+        <th style="padding:5px;font-size:.72rem;background:var(--surf2);border:1px solid var(--bdr)">%</th>
       </tr></thead><tbody>${rows}</tbody>
     </table></div>`;
   document.getElementById('bulkAnal').style.display='block';
@@ -728,7 +728,7 @@ function rfBulkAnal(stu,q,cat,idx,hv){
   const scores=stu.map(s=>{const g=(cd.grades[q]&&cd.grades[q][s.name])||{};return cat==='WW'?(g.ww&&g.ww[idx]!==null?g.ww[idx]:null):cat==='PT'?(g.pt&&g.pt[idx]!==null?g.pt[idx]:null):(g.qa!==null&&g.qa!==undefined?g.qa:null);});
   const wg=scores.filter(v=>v!==null);const miss=scores.filter(v=>v===null).length;const avg=wg.length?r2(wg.reduce((a,b)=>a+b,0)/wg.length):0;
   document.getElementById('bStats').innerHTML=`<div class="sc"><div class="sn2" style="color:var(--blue)">${stu.length}</div><div class="sl2">Total</div></div><div class="sc"><div class="sn2" style="color:var(--green)">${wg.length}</div><div class="sl2">With Grades</div></div><div class="sc"><div class="sn2" style="color:var(--red)">${miss}</div><div class="sl2">Missing</div></div><div class="sc"><div class="sn2" style="color:var(--amber)">${avg}</div><div class="sl2">Average</div></div>`;
-  if(miss>0){const mn=stu.filter((_,i)=>scores[i]===null).map(s=>s.name);document.getElementById('bMiss').innerHTML=`<div style="margin-top:9px"><div class="lbl" style="margin-bottom:5px">Missing (${miss})</div><div style="display:flex;flex-wrap:wrap;gap:4px">${mn.map(n=>`<span style="background:var(--red2);color:var(--red);padding:2px 6px;border-radius:99px;font-size:10px">${escH(n)}</span>`).join('')}</div></div>`;}
+  if(miss>0){const mn=stu.filter((_,i)=>scores[i]===null).map(s=>s.name);document.getElementById('bMiss').innerHTML=`<div style="margin-top:9px"><div class="lbl" style="margin-bottom:5px">Missing (${miss})</div><div style="display:flex;flex-wrap:wrap;gap:4px">${mn.map(n=>`<span style="background:var(--red2);color:var(--red);padding:2px 6px;border-radius:99px;font-size:.72rem">${escH(n)}</span>`).join('')}</div></div>`;}
   else document.getElementById('bMiss').innerHTML='';
 }
 
@@ -788,13 +788,13 @@ function renderSumClass(){
   if(!stu.length){el.innerHTML='<div class="ws"><h2>No students</h2></div>';return}
   let rows='';let lastG=null;
   stu.forEach(s=>{
-    if(s.g!==lastG){rows+=`<tr><td colspan="9" style="background:${s.g==='male'?'#e8f4fd':'#fce8f3'};font-weight:600;font-size:10px;padding:4px 9px;color:${s.g==='male'?'var(--blue)':'var(--pink)'}">${s.g==='male'?'👦 MALE':'👧 FEMALE'}</td></tr>`;lastG=s.g;}
+    if(s.g!==lastG){rows+=`<tr><td colspan="9" style="background:${s.g==='male'?'#e8f4fd':'#fce8f3'};font-weight:600;font-size:.72rem;padding:4px 9px;color:${s.g==='male'?'var(--blue)':'var(--pink)'}">${s.g==='male'?'👦 MALE':'👧 FEMALE'}</td></tr>`;lastG=s.g;}
     const num=(s.g==='male'?cd.students.male:cd.students.female).indexOf(s.name)+1;
     const q1=calcQ(s.name,1).quarterly,q2=calcQ(s.name,2).quarterly,q3=calcQ(s.name,3).quarterly,q4=calcQ(s.name,4).quarterly;
     const vq=[q1,q2,q3,q4].filter(v=>v!==null);const final=vq.length?Math.round(vq.reduce((a,b)=>a+b,0)/vq.length):null;const rem=final!==null?(final>=75?'PASSED':'FAILED'):'';
-    rows+=`<tr><td style="text-align:center;padding:5px;font-size:10px;color:var(--tx3);border:1px solid var(--bdr)">${num}</td><td style="padding:5px 8px;font-size:11px;font-weight:500;border:1px solid var(--bdr)">${escH(s.name)}</td>${[q1,q2,q3,q4].map(v=>`<td style="text-align:center;font-family:'DM Mono',monospace;font-size:11px;font-weight:600;border:1px solid var(--bdr)">${v||'—'}</td>`).join('')}<td style="text-align:center;font-family:'DM Mono',monospace;font-size:12px;font-weight:700;color:var(--blue);border:1px solid var(--bdr)">${final||'—'}</td><td style="text-align:center;border:1px solid var(--bdr)">${rem?`<span class="${rem==='PASSED'?'bpass':'bfail'}">${rem}</span>`:''}</td></tr>`;
+    rows+=`<tr><td style="text-align:center;padding:5px;font-size:.72rem;color:var(--tx3);border:1px solid var(--bdr)">${num}</td><td style="padding:5px 8px;font-size:.82rem;font-weight:500;border:1px solid var(--bdr)">${escH(s.name)}</td>${[q1,q2,q3,q4].map(v=>`<td style="text-align:center;font-family:'DM Mono',monospace;font-size:.82rem;font-weight:600;border:1px solid var(--bdr)">${v||'—'}</td>`).join('')}<td style="text-align:center;font-family:'DM Mono',monospace;font-size:12px;font-weight:700;color:var(--blue);border:1px solid var(--bdr)">${final||'—'}</td><td style="text-align:center;border:1px solid var(--bdr)">${rem?`<span class="${rem==='PASSED'?'bpass':'bfail'}">${rem}</span>`:''}</td></tr>`;
   });
-  el.innerHTML=`<div class="card"><div style="font-size:10px;color:var(--tx3);margin-bottom:10px">${cd.school.subject||'—'} · ${APP.ac.grade} ${APP.ac.section} · ${cd.school.teacher||'—'} · SY ${cd.school.year||'—'}</div>
+  el.innerHTML=`<div class="card"><div style="font-size:.72rem;color:var(--tx3);margin-bottom:10px">${cd.school.subject||'—'} · ${APP.ac.grade} ${APP.ac.section} · ${cd.school.teacher||'—'} · SY ${cd.school.year||'—'}</div>
     <div style="overflow-x:auto"><table class="stbl"><thead><tr><th style="width:26px">#</th><th style="text-align:left;min-width:170px">Learner's Name</th><th style="text-align:center;width:58px">Q1</th><th style="text-align:center;width:58px">Q2</th><th style="text-align:center;width:58px">Q3</th><th style="text-align:center;width:58px">Q4</th><th style="text-align:center;width:62px">Final</th><th style="text-align:center;width:78px">Remark</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
 }
 function renderStuDetail(){
@@ -989,9 +989,9 @@ function renderAnalContent(){
         <h2>No grades entered yet</h2>
         ${missingStudents.length ? `
           <div style="margin-top:12px;text-align:left">
-            <div style="font-size:11px;font-weight:600;color:var(--red);margin-bottom:6px">Students with Missing Grades</div>
+            <div style="font-size:.82rem;font-weight:600;color:var(--red);margin-bottom:6px">Students with Missing Grades</div>
             <div style="display:flex;flex-wrap:wrap;gap:4px">
-              ${missingStudents.map(s=>`<span style="background:var(--red2);color:var(--red);padding:3px 7px;border-radius:99px;font-size:10px">${escH(s.name)}</span>`).join('')}
+              ${missingStudents.map(s=>`<span style="background:var(--red2);color:var(--red);padding:3px 7px;border-radius:99px;font-size:.72rem">${escH(s.name)}</span>`).join('')}
             </div>
           </div>
         `:''}
@@ -1022,7 +1022,7 @@ function renderAnalContent(){
   const miss=missingStudents.length;
 
   area.innerHTML=`
-    <div style="font-size:10px;color:var(--tx3);margin-bottom:10px">${cd.school.subject||'—'} · ${APP.ac.grade} ${APP.ac.section} · ${q===0?'All Quarters (Final)':'Quarter '+q}</div>
+    <div style="font-size:.72rem;color:var(--tx3);margin-bottom:10px">${cd.school.subject||'—'} · ${APP.ac.grade} ${APP.ac.section} · ${q===0?'All Quarters (Final)':'Quarter '+q}</div>
     <div class="ag4">
       <div class="sc"><div class="sn2" style="color:var(--blue)">${avg}</div><div class="sl2">Class Average</div></div>
       <div class="sc"><div class="sn2" style="color:var(--green)">${hi}</div><div class="sl2">Highest</div></div>
@@ -1041,13 +1041,13 @@ function renderAnalContent(){
         <div class="ch"><div class="ct">Pass / Fail</div></div>
         ${[{l:'Passing (≥75)',v:pass,c:'var(--green)'},{l:'Below 75',v:fail,c:'var(--red)'}].map(r=>`
         <div style="margin-bottom:13px">
-          <div class="fl" style="margin-bottom:5px;justify-content:space-between"><span style="font-size:11px;color:${r.c};font-weight:500">${r.l}</span><span style="font-size:11px;font-family:'DM Mono',monospace;font-weight:600">${r.v}/${grades.length}</span></div>
+          <div class="fl" style="margin-bottom:5px;justify-content:space-between"><span style="font-size:.82rem;color:${r.c};font-weight:500">${r.l}</span><span style="font-size:.82rem;font-family:'DM Mono',monospace;font-weight:600">${r.v}/${grades.length}</span></div>
           <div style="background:var(--bg);border-radius:99px;height:7px;overflow:hidden"><div style="height:100%;border-radius:99px;background:${r.c};width:${grades.length?Math.round((r.v/grades.length)*100):0}%"></div></div>
-          <div style="font-size:10px;color:var(--tx3);margin-top:3px">${grades.length?Math.round((r.v/grades.length)*100):0}%</div>
+          <div style="font-size:.72rem;color:var(--tx3);margin-top:3px">${grades.length?Math.round((r.v/grades.length)*100):0}%</div>
         </div>`).join('')}
         <div class="g2" style="margin-top:8px">
-          <div style="text-align:center;padding:10px;background:var(--blue2);border-radius:var(--rs)"><div style="font-size:10px;color:var(--blue);margin-bottom:2px">Top (90+)</div><div style="font-size:19px;font-weight:700;font-family:'DM Mono',monospace;color:var(--blue)">${grades.filter(g=>g>=90).length}</div></div>
-          <div style="text-align:center;padding:10px;background:var(--red2);border-radius:var(--rs)"><div style="font-size:10px;color:var(--red);margin-bottom:2px">Missing</div><div style="font-size:19px;font-weight:700;font-family:'DM Mono',monospace;color:var(--red)">${miss}</div></div>
+          <div style="text-align:center;padding:10px;background:var(--blue2);border-radius:var(--rs)"><div style="font-size:.72rem;color:var(--blue);margin-bottom:2px">Top (90+)</div><div style="font-size:19px;font-weight:700;font-family:'DM Mono',monospace;color:var(--blue)">${grades.filter(g=>g>=90).length}</div></div>
+          <div style="text-align:center;padding:10px;background:var(--red2);border-radius:var(--rs)"><div style="font-size:.72rem;color:var(--red);margin-bottom:2px">Missing</div><div style="font-size:19px;font-weight:700;font-family:'DM Mono',monospace;color:var(--red)">${miss}</div></div>
         </div>
       </div>
     </div>
@@ -1059,19 +1059,19 @@ function renderAnalContent(){
       <div style="border:1px solid var(--bdr);border-radius:12px;padding:12px;background:var(--panel)">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
           <div style="font-size:12px;font-weight:700;color:${b.c}">${b.l}</div>
-          <div style="font-size:11px;color:var(--tx3)">${b.cnt} student(s)</div>
+          <div style="font-size:.82rem;color:var(--tx3)">${b.cnt} student(s)</div>
         </div>
         ${
           b.students.length
           ? `<div style="display:flex;flex-wrap:wrap;gap:6px">
               ${b.students.map(st=>`
-                <span style="display:inline-flex;align-items:center;gap:6px;padding:5px 8px;border-radius:999px;background:var(--bg);border:1px solid var(--bdr);font-size:11px">
+                <span style="display:inline-flex;align-items:center;gap:6px;padding:5px 8px;border-radius:999px;background:var(--bg);border:1px solid var(--bdr);font-size:.82rem">
                   <span>${escH(st.name)}</span>
                   <strong style="color:${b.c}">${st.grade}</strong>
                 </span>
               `).join('')}
             </div>`
-          : `<div style="font-size:11px;color:var(--tx3)">No students in this range</div>`
+          : `<div style="font-size:.82rem;color:var(--tx3)">No students in this range</div>`
         }
       </div>
     `).join('')}
@@ -1365,7 +1365,7 @@ function renderLOA(){
     <button class="btn br bsm" onclick="pdfLOA()">📄 LOA PDF</button>
     <button class="btn bg bsm" onclick="excelLOA()">📊 LOA Excel</button>
     <div class="sp"></div>
-    <span style="font-size:10px;color:var(--tx3)">Level of Achievement (LOA) summary auto-computes from your grade entries</span>
+    <span style="font-size:.72rem;color:var(--tx3)">Level of Achievement (LOA) summary auto-computes from your grade entries</span>
   </div>
   <!-- Diagnostic Test Config -->
   <div class="card" style="margin-bottom:14px">
@@ -1428,7 +1428,7 @@ function renderLOAContent(){
   const N=stu.length;
 
   area.innerHTML=`
-  <div style="font-size:11px;font-weight:600;color:var(--tx2);margin-bottom:14px;padding:8px 12px;background:var(--surf2);border-radius:var(--r);border:1px solid var(--bdr)">
+  <div style="font-size:.82rem;font-weight:600;color:var(--tx2);margin-bottom:14px;padding:8px 12px;background:var(--surf2);border-radius:var(--r);border:1px solid var(--bdr)">
     📊 ${cd.school.subject||'Subject'} · ${section} · Quarter ${q} · ${cd.school.teacher||'Teacher'} · SY ${cd.school.year||'—'}
   </div>
 
@@ -1716,7 +1716,7 @@ function renderGSLOA(){
   ];
 
   el.innerHTML=`
-  <div style="font-size:11px;color:var(--tx2);padding:8px 12px;background:var(--surf2);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:14px;font-weight:500">
+  <div style="font-size:.82rem;color:var(--tx2);padding:8px 12px;background:var(--surf2);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:14px;font-weight:500">
     📊 LOA Overview — ${escH(cd.school.subject||'Subject')} · ${escH(section)} · ${escH(cd.school.teacher||'Teacher')} · SY ${escH(cd.school.year||'—')}
   </div>
 
@@ -2022,7 +2022,7 @@ function renderGradeSummaryPage(){
   let rows='';let lastG=null;
   stu.forEach(s=>{
     if(s.g!==lastG){
-      rows+=`<tr><td colspan="21" style="background:${s.g==='male'?'#e8f4fd':'#fce8f3'};font-weight:600;font-size:10px;padding:4px 8px;color:${s.g==='male'?'var(--blue)':'var(--pink)'}">${s.g==='male'?'👦 MALE':'👧 FEMALE'}</td></tr>`;
+      rows+=`<tr><td colspan="21" style="background:${s.g==='male'?'#e8f4fd':'#fce8f3'};font-weight:600;font-size:.72rem;padding:4px 8px;color:${s.g==='male'?'var(--blue)':'var(--pink)'}">${s.g==='male'?'👦 MALE':'👧 FEMALE'}</td></tr>`;
       lastG=s.g;
     }
     const num=(s.g==='male'?cd.students.male:cd.students.female).indexOf(s.name)+1;
@@ -2031,24 +2031,24 @@ function renderGradeSummaryPage(){
     const final=finals.length?Math.round(finals.reduce((a,b)=>a+b,0)/finals.length):null;
     const rem=final!==null?(final>=75?'PASSED':'FAILED'):'';
     rows+=`<tr>
-      <td style="text-align:center;padding:5px;font-size:10px;color:var(--tx3);border:1px solid var(--bdr)">${num}</td>
-      <td style="padding:5px 7px;font-size:11px;font-weight:500;border:1px solid var(--bdr);min-width:220px">${escH(s.name)}</td>
+      <td style="text-align:center;padding:5px;font-size:.72rem;color:var(--tx3);border:1px solid var(--bdr)">${num}</td>
+      <td style="padding:5px 7px;font-size:.82rem;font-weight:500;border:1px solid var(--bdr);min-width:220px">${escH(s.name)}</td>
       <td style="text-align:center;border:1px solid var(--bdr)">${b1.ww}</td>
       <td style="text-align:center;border:1px solid var(--bdr)">${b1.pt}</td>
       <td style="text-align:center;border:1px solid var(--bdr)">${b1.qa}</td>
-      <td style="text-align:center;font-family:'DM Mono',monospace;font-size:11px;font-weight:700;border:1px solid var(--bdr)">${b1.qg}</td>
+      <td style="text-align:center;font-family:'DM Mono',monospace;font-size:.82rem;font-weight:700;border:1px solid var(--bdr)">${b1.qg}</td>
       <td style="text-align:center;border:1px solid var(--bdr)">${b2.ww}</td>
       <td style="text-align:center;border:1px solid var(--bdr)">${b2.pt}</td>
       <td style="text-align:center;border:1px solid var(--bdr)">${b2.qa}</td>
-      <td style="text-align:center;font-family:'DM Mono',monospace;font-size:11px;font-weight:700;border:1px solid var(--bdr)">${b2.qg}</td>
+      <td style="text-align:center;font-family:'DM Mono',monospace;font-size:.82rem;font-weight:700;border:1px solid var(--bdr)">${b2.qg}</td>
       <td style="text-align:center;border:1px solid var(--bdr)">${b3.ww}</td>
       <td style="text-align:center;border:1px solid var(--bdr)">${b3.pt}</td>
       <td style="text-align:center;border:1px solid var(--bdr)">${b3.qa}</td>
-      <td style="text-align:center;font-family:'DM Mono',monospace;font-size:11px;font-weight:700;border:1px solid var(--bdr)">${b3.qg}</td>
+      <td style="text-align:center;font-family:'DM Mono',monospace;font-size:.82rem;font-weight:700;border:1px solid var(--bdr)">${b3.qg}</td>
       <td style="text-align:center;border:1px solid var(--bdr)">${b4.ww}</td>
       <td style="text-align:center;border:1px solid var(--bdr)">${b4.pt}</td>
       <td style="text-align:center;border:1px solid var(--bdr)">${b4.qa}</td>
-      <td style="text-align:center;font-family:'DM Mono',monospace;font-size:11px;font-weight:700;border:1px solid var(--bdr)">${b4.qg}</td>
+      <td style="text-align:center;font-family:'DM Mono',monospace;font-size:.82rem;font-weight:700;border:1px solid var(--bdr)">${b4.qg}</td>
       <td style="text-align:center;font-family:'DM Mono',monospace;font-size:12px;font-weight:700;color:var(--blue);border:1px solid var(--bdr)">${final||'—'}</td>
       <td style="text-align:center;border:1px solid var(--bdr)">${rem?`<span class="${rem==='PASSED'?'bpass':'bfail'}">${rem}</span>`:''}</td>
       <td style="text-align:center;border:1px solid var(--bdr)"><button class="btn bp bsm" onclick="openGSStudent('${esc(s.name)}')">Edit</button></td>
@@ -2056,8 +2056,8 @@ function renderGradeSummaryPage(){
   });
 
   el.innerHTML=`
-    <div style="font-size:10px;color:var(--tx3);margin-bottom:9px">${cd.school.subject||'—'} · ${APP.ac.grade} ${APP.ac.section} · ${cd.school.teacher||'—'} · SY ${cd.school.year||'—'}</div>
-    <div style="font-size:11px;color:var(--tx2);margin-bottom:8px">Quarter blocks now show WW Total, PT Total, QA, and Quarter Grade so teachers can quickly see how each final quarter grade was formed.</div>
+    <div style="font-size:.72rem;color:var(--tx3);margin-bottom:9px">${cd.school.subject||'—'} · ${APP.ac.grade} ${APP.ac.section} · ${cd.school.teacher||'—'} · SY ${cd.school.year||'—'}</div>
+    <div style="font-size:.82rem;color:var(--tx2);margin-bottom:8px">Quarter blocks now show WW Total, PT Total, QA, and Quarter Grade so teachers can quickly see how each final quarter grade was formed.</div>
     <div style="overflow-x:auto">
       <table class="stbl">
         <thead>
@@ -2164,14 +2164,14 @@ function renderAttSummary(){
     </div>
   </div>
   ${dates.length===0?'<div class="ws"><h2>No records yet</h2><p>Go to Daily Attendance to record attendance.</p></div>':`<div class="card">
-    <div style="font-size:10px;color:var(--tx3);margin-bottom:7px">Showing last ${Math.min(dates.length,20)} days</div>
+    <div style="font-size:.72rem;color:var(--tx3);margin-bottom:7px">Showing last ${Math.min(dates.length,20)} days</div>
     <div style="overflow-x:auto">${(()=>{
       const rd=dates.slice(-20);let rows='';let lastG=null;
       stu.forEach(s=>{
-        if(s.g!==lastG){rows+=`<tr><td colspan="${rd.length+4}" style="background:${s.g==='male'?'#e8f4fd':'#fce8f3'};font-weight:600;font-size:10px;padding:3px 7px;color:${s.g==='male'?'var(--blue)':'var(--pink)'}">${s.g==='male'?'👦 MALE':'👧 FEMALE'}</td></tr>`;lastG=s.g;}
+        if(s.g!==lastG){rows+=`<tr><td colspan="${rd.length+4}" style="background:${s.g==='male'?'#e8f4fd':'#fce8f3'};font-weight:600;font-size:.72rem;padding:3px 7px;color:${s.g==='male'?'var(--blue)':'var(--pink)'}">${s.g==='male'?'👦 MALE':'👧 FEMALE'}</td></tr>`;lastG=s.g;}
         const num=(s.g==='male'?cd.students.male:cd.students.female).indexOf(s.name)+1;let P=0,A=0,L=0;
-        const cells=rd.map(d=>{const t=(cd.att[d]||{})[s.name]||'';if(t==='P')P++;else if(t==='A')A++;else if(t==='L')L++;const col=t==='P'?'var(--green)':t==='A'?'var(--red)':t==='L'?'var(--amber)':'var(--tx4)';return`<td style="text-align:center;border:1px solid var(--bdr);font-size:10px;font-weight:600;color:${col};padding:3px;width:27px">${t||'—'}</td>`;}).join('');
-        rows+=`<tr><td style="text-align:center;padding:4px;font-size:10px;color:var(--tx3);border:1px solid var(--bdr)">${num}</td><td style="padding:4px 7px;font-size:11px;font-weight:500;border:1px solid var(--bdr);min-width:150px">${escH(s.name)}</td>${cells}<td style="text-align:center;border:1px solid var(--bdr);font-size:10px;font-weight:600;color:var(--green);padding:3px">${P}</td><td style="text-align:center;border:1px solid var(--bdr);font-size:10px;font-weight:600;color:var(--red);padding:3px">${A}</td></tr>`;
+        const cells=rd.map(d=>{const t=(cd.att[d]||{})[s.name]||'';if(t==='P')P++;else if(t==='A')A++;else if(t==='L')L++;const col=t==='P'?'var(--green)':t==='A'?'var(--red)':t==='L'?'var(--amber)':'var(--tx4)';return`<td style="text-align:center;border:1px solid var(--bdr);font-size:.72rem;font-weight:600;color:${col};padding:3px;width:27px">${t||'—'}</td>`;}).join('');
+        rows+=`<tr><td style="text-align:center;padding:4px;font-size:.72rem;color:var(--tx3);border:1px solid var(--bdr)">${num}</td><td style="padding:4px 7px;font-size:.82rem;font-weight:500;border:1px solid var(--bdr);min-width:150px">${escH(s.name)}</td>${cells}<td style="text-align:center;border:1px solid var(--bdr);font-size:.72rem;font-weight:600;color:var(--green);padding:3px">${P}</td><td style="text-align:center;border:1px solid var(--bdr);font-size:.72rem;font-weight:600;color:var(--red);padding:3px">${A}</td></tr>`;
       });
       return`<table class="att-tbl"><thead><tr><th style="width:26px">#</th><th style="text-align:left;min-width:150px">Name</th>${rd.map(d=>`<th style="width:27px;font-size:9px">${d.slice(5)}</th>`).join('')}<th style="color:var(--green);width:28px">P</th><th style="color:var(--red);width:28px">A</th></tr></thead><tbody>${rows}</tbody></table>`;
     })()}</div>
@@ -2228,7 +2228,7 @@ function renderIPills(){
 function renderIStatus(){
   const el=document.getElementById('istat');if(!el)return;
   if(!APP.imported.length){el.innerHTML='<div class="ws" style="padding:20px"><h2>No imports</h2></div>';return}
-  el.innerHTML=APP.imported.map((s,i)=>`<div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--bdr)"><span class="tag ${SPILLS[i%SPILLS.length]}">${escH(s.subject||'?')}</span><div><div style="font-size:11px;font-weight:500">${escH(s.teacher||'—')}</div><div style="font-size:10px;color:var(--tx3)">${(s.students||[]).length} students · ${escH(s.section||'')} · ${escH(s.exportDate||'')}</div></div></div>`).join('');
+  el.innerHTML=APP.imported.map((s,i)=>`<div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--bdr)"><span class="tag ${SPILLS[i%SPILLS.length]}">${escH(s.subject||'?')}</span><div><div style="font-size:.82rem;font-weight:500">${escH(s.teacher||'—')}</div><div style="font-size:.72rem;color:var(--tx3)">${(s.students||[]).length} students · ${escH(s.section||'')} · ${escH(s.exportDate||'')}</div></div></div>`).join('');
 }
 function renderConsTable(){
   const el=document.getElementById('consTable');if(!el)return;
@@ -2241,17 +2241,17 @@ function renderConsTable(){
   let rows='';
   nameArr.forEach((name,idx)=>{
     const cells=subjects.map((subj,si)=>{
-      const st=lkp[subj][name];if(!st)return`<td style="text-align:center;border:1px solid var(--bdr);font-size:10px;color:var(--tx4)">—</td>`;
+      const st=lkp[subj][name];if(!st)return`<td style="text-align:center;border:1px solid var(--bdr);font-size:.72rem;color:var(--tx4)">—</td>`;
       const f=st.finalGrade;sf[si].t++;sf[si].sum+=f||0;if(f>=75)sf[si].p++;else sf[si].f++;
-      return`<td style="text-align:center;border:1px solid var(--bdr);font-family:'DM Mono',monospace;font-size:11px;font-weight:600;color:${f?(f>=75?'var(--green)':'var(--red)'):'var(--tx3)'}">${f||'—'}</td>`;
+      return`<td style="text-align:center;border:1px solid var(--bdr);font-family:'DM Mono',monospace;font-size:.82rem;font-weight:600;color:${f?(f>=75?'var(--green)':'var(--red)'):'var(--tx3)'}">${f||'—'}</td>`;
     }).join('');
     const grades=subjects.map(subj=>lkp[subj][name]?.finalGrade).filter(v=>v!==null&&v!==undefined);
     const ga=grades.length?Math.round(grades.reduce((a,b)=>a+b,0)/grades.length):null;
     const allP=subjects.every(subj=>{const st=lkp[subj][name];return!st||!st.finalGrade||(st.finalGrade>=75)});
     const prom=ga!==null?(ga>=75&&allP?'PROMOTED':'RETAINED'):'';
-    rows+=`<tr><td style="text-align:center;padding:4px;font-size:10px;color:var(--tx3);border:1px solid var(--bdr)">${idx+1}</td><td style="padding:4px 7px;font-size:11px;font-weight:500;border:1px solid var(--bdr);min-width:160px">${escH(name)}</td>${cells}<td style="text-align:center;border:1px solid var(--bdr);font-family:'DM Mono',monospace;font-size:12px;font-weight:700;color:var(--blue)">${ga||'—'}</td><td style="text-align:center;border:1px solid var(--bdr)">${prom?`<span class="${prom==='PROMOTED'?'bpass':'bfail'}">${prom}</span>`:''}</td></tr>`;
+    rows+=`<tr><td style="text-align:center;padding:4px;font-size:.72rem;color:var(--tx3);border:1px solid var(--bdr)">${idx+1}</td><td style="padding:4px 7px;font-size:.82rem;font-weight:500;border:1px solid var(--bdr);min-width:160px">${escH(name)}</td>${cells}<td style="text-align:center;border:1px solid var(--bdr);font-family:'DM Mono',monospace;font-size:12px;font-weight:700;color:var(--blue)">${ga||'—'}</td><td style="text-align:center;border:1px solid var(--bdr)">${prom?`<span class="${prom==='PROMOTED'?'bpass':'bfail'}">${prom}</span>`:''}</td></tr>`;
   });
-  const avgRow=`<tr style="background:var(--surf2)"><td></td><td style="padding:4px 7px;font-size:10px;font-weight:600;color:var(--tx3);border:1px solid var(--bdr)">Class Average</td>${sf.map(s=>`<td style="text-align:center;border:1px solid var(--bdr);font-family:'DM Mono',monospace;font-size:10px;font-weight:600;color:var(--blue)">${s.t?r2(s.sum/s.t):'—'}</td>`).join('')}<td colspan="2" style="border:1px solid var(--bdr)"></td></tr>`;
+  const avgRow=`<tr style="background:var(--surf2)"><td></td><td style="padding:4px 7px;font-size:.72rem;font-weight:600;color:var(--tx3);border:1px solid var(--bdr)">Class Average</td>${sf.map(s=>`<td style="text-align:center;border:1px solid var(--bdr);font-family:'DM Mono',monospace;font-size:.72rem;font-weight:600;color:var(--blue)">${s.t?r2(s.sum/s.t):'—'}</td>`).join('')}<td colspan="2" style="border:1px solid var(--bdr)"></td></tr>`;
   el.innerHTML=`<div class="card"><div class="ch"><div class="ct">Consolidated Grades</div><div class="cs">${nameArr.length} students · ${subjects.length} subjects</div></div>
     <div style="overflow-x:auto"><table class="ctbl"><thead><tr><th style="width:26px">#</th><th class="nc" style="min-width:160px">Learner's Name</th>${subjects.map((s,i)=>`<th style="min-width:66px"><span class="tag ${SPILLS[i%SPILLS.length]}">${escH(s)}</span></th>`).join('')}<th style="min-width:62px;color:var(--blue)">Gen. Avg</th><th style="min-width:78px">Status</th></tr></thead><tbody>${rows}${avgRow}</tbody></table></div></div>`;
 }
@@ -2516,7 +2516,7 @@ function excelLOA(){
 function printWin(title,html){
   const w=window.open('','_blank','width=1200,height=850');
   w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${escH(title)}</title>
-  <style>body{font-family:Arial,sans-serif;font-size:9px;color:#1a1d23;margin:0;padding:14px}h1{font-size:13px;font-weight:700;margin-bottom:3px}h2{font-size:11px;font-weight:600;margin:0 0 2px}.meta{font-size:8px;color:#666;margin-bottom:10px}table{border-collapse:collapse;width:100%;font-size:8px;margin-bottom:10px}th,td{border:1px solid #cdd3da;padding:3px 4px;text-align:center}th{background:#f0f2f5;font-weight:600}.nc{text-align:left}.pass{color:#0d9488;font-weight:700}.fail{color:#dc2626;font-weight:700}.bold{font-weight:700}.sec{font-weight:700;font-size:8px;padding:3px 6px;text-align:left}.hrow td{background:#fffbeb;font-weight:500}.sww{background:#e8f0fe;color:#1a56db;font-weight:700}.spt{background:#fffbeb;color:#d97706;font-weight:700}.sqa{background:#e6faf8;color:#0d9488;font-weight:700}.sg{background:#f3f0ff;color:#7c3aed;font-weight:700}.stat-row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}.stat-box{text-align:center;padding:6px 10px;border:1px solid #cdd3da;border-radius:5px}.stat-n{font-size:16px;font-weight:700}.stat-l{font-size:7px;color:#666;text-transform:uppercase}.band-row{display:flex;align-items:center;gap:6px;padding:3px 0;border-bottom:1px solid #e2e6ea}.bl{width:62px;font-size:8px}.bbw{flex:1;background:#f0f2f5;border-radius:99px;height:5px;overflow:hidden}.bb{height:100%;border-radius:99px}.bcnt{width:24px;text-align:right;font-size:8px}.loa-sec{margin-bottom:10px;padding:8px;border:1px solid #cdd3da;border-radius:5px}.loa-title{font-weight:700;font-size:9px;text-transform:uppercase;margin-bottom:6px;padding:4px 6px;border-radius:3px}@media print{@page{size:A4 landscape;margin:7mm}}
+  <style>body{font-family:Arial,sans-serif;font-size:9px;color:#1a1d23;margin:0;padding:14px}h1{font-size:13px;font-weight:700;margin-bottom:3px}h2{font-size:.82rem;font-weight:600;margin:0 0 2px}.meta{font-size:8px;color:#666;margin-bottom:10px}table{border-collapse:collapse;width:100%;font-size:8px;margin-bottom:10px}th,td{border:1px solid #cdd3da;padding:3px 4px;text-align:center}th{background:#f0f2f5;font-weight:600}.nc{text-align:left}.pass{color:#0d9488;font-weight:700}.fail{color:#dc2626;font-weight:700}.bold{font-weight:700}.sec{font-weight:700;font-size:8px;padding:3px 6px;text-align:left}.hrow td{background:#fffbeb;font-weight:500}.sww{background:#e8f0fe;color:#1a56db;font-weight:700}.spt{background:#fffbeb;color:#d97706;font-weight:700}.sqa{background:#e6faf8;color:#0d9488;font-weight:700}.sg{background:#f3f0ff;color:#7c3aed;font-weight:700}.stat-row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}.stat-box{text-align:center;padding:6px 10px;border:1px solid #cdd3da;border-radius:5px}.stat-n{font-size:16px;font-weight:700}.stat-l{font-size:7px;color:#666;text-transform:uppercase}.band-row{display:flex;align-items:center;gap:6px;padding:3px 0;border-bottom:1px solid #e2e6ea}.bl{width:62px;font-size:8px}.bbw{flex:1;background:#f0f2f5;border-radius:99px;height:5px;overflow:hidden}.bb{height:100%;border-radius:99px}.bcnt{width:24px;text-align:right;font-size:8px}.loa-sec{margin-bottom:10px;padding:8px;border:1px solid #cdd3da;border-radius:5px}.loa-title{font-weight:700;font-size:9px;text-transform:uppercase;margin-bottom:6px;padding:4px 6px;border-radius:3px}@media print{@page{size:A4 landscape;margin:7mm}}
 /* simplified menu-home flow */
 .mainnav{display:none !important}
 .home-only-hide{display:none}
