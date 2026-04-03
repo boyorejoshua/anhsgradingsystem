@@ -482,15 +482,15 @@ function renderGradeTable(){
     const c=calcQ(s.name,q);const sid=s.name.replace(/[^a-zA-Z0-9]/g,'_');
     body+=`<tr class="${s.g==='male'?'rm':'rf'}" id="trow_${q}_${sid}">
       <td class="numc">${num}</td><td class="nc">${escH(s.name)}</td>
-      ${Array.from({length:wwC},(_,i)=>`<td class="gc ${isMissingGrade(ww[i])?'missing-grade':''}"><input type="number" min="0" value="${ww[i]!==null&&ww[i]!==undefined?ww[i]:''}" class="${isMissingGrade(ww[i])?'missing-grade-input':''}" oninput="setGr('${esc(s.name)}',${q},'ww',${i},this.value)"></td>`).join('')}
+      ${Array.from({length:wwC},(_,i)=>`<td class="gc ${isMissingGrade(ww[i])?'missing-grade':''}"><input type="number" min="0" value="${ww[i]!==null&&ww[i]!==undefined?ww[i]:''}" class="${isMissingGrade(ww[i])?'missing-grade-input':''}" oninput="setGr('${esc(s.name)}',${q},'ww',${i},this.value); this.value = this.value === '' ? '' : Math.min(parseFloat(this.value)||0, ${h.ww[i]||0})"></td>`).join('')}
       <td class="cc bold ${isMissingGrade(c.wwT)?'missing-grade':''}" id="wwT_${q}_${sid}">${c.wwT!==null?c.wwT:''}</td>
       <td class="cc ${isMissingGrade(c.wwPS)?'missing-grade':''}" id="wwPS_${q}_${sid}">${c.wwPS!==null?c.wwPS:''}</td>
       <td class="cc ${isMissingGrade(c.wwWS)?'missing-grade':''}" id="wwWS_${q}_${sid}">${c.wwWS!==null?c.wwWS:''}</td>
-      ${Array.from({length:ptC},(_,i)=>`<td class="gc ${isMissingGrade(pt[i])?'missing-grade':''}"><input type="number" min="0" value="${pt[i]!==null&&pt[i]!==undefined?pt[i]:''}" class="${isMissingGrade(pt[i])?'missing-grade-input':''}" oninput="setGr('${esc(s.name)}',${q},'pt',${i},this.value)"></td>`).join('')}
+      ${Array.from({length:ptC},(_,i)=>`<td class="gc ${isMissingGrade(pt[i])?'missing-grade':''}"><input type="number" min="0" value="${pt[i]!==null&&pt[i]!==undefined?pt[i]:''}" class="${isMissingGrade(pt[i])?'missing-grade-input':''}" oninput="setGr('${esc(s.name)}',${q},'pt',${i},this.value); this.value = this.value === '' ? '' : Math.min(parseFloat(this.value)||0, ${h.pt[i]||0})"></td>`).join('')}
       <td class="cc bold ${isMissingGrade(c.ptT)?'missing-grade':''}" id="ptT_${q}_${sid}">${c.ptT!==null?c.ptT:''}</td>
       <td class="cc ${isMissingGrade(c.ptPS)?'missing-grade':''}" id="ptPS_${q}_${sid}">${c.ptPS!==null?c.ptPS:''}</td>
       <td class="cc ${isMissingGrade(c.ptWS)?'missing-grade':''}" id="ptWS_${q}_${sid}">${c.ptWS!==null?c.ptWS:''}</td>
-      ${hasQA?`<td class="gc ${isMissingGrade(qa)?'missing-grade':''}"><input type="number" min="0" value="${qa}" class="${isMissingGrade(qa)?'missing-grade-input':''}" oninput="setGr('${esc(s.name)}',${q},'qa',0,this.value)"></td><td class="cc ${isMissingGrade(c.qaPS)?'missing-grade':''}" id="qaPS_${q}_${sid}">${c.qaPS!==null?c.qaPS:''}</td><td class="cc ${isMissingGrade(c.qaWS)?'missing-grade':''}" id="qaWS_${q}_${sid}">${c.qaWS!==null?c.qaWS:''}</td>`:''}
+      ${hasQA?`<td class="gc ${isMissingGrade(qa)?'missing-grade':''}"><input type="number" min="0" value="${qa}" class="${isMissingGrade(qa)?'missing-grade-input':''}" oninput="setGr('${esc(s.name)}',${q},'qa',0,this.value); this.value = this.value === '' ? '' : Math.min(parseFloat(this.value)||0, ${h.qa||0})"></td><td class="cc ${isMissingGrade(c.qaPS)?'missing-grade':''}" id="qaPS_${q}_${sid}">${c.qaPS!==null?c.qaPS:''}</td><td class="cc ${isMissingGrade(c.qaWS)?'missing-grade':''}" id="qaWS_${q}_${sid}">${c.qaWS!==null?c.qaWS:''}</td>`:''}
       <td class="cc bold ${isMissingGrade(c.initial)?'missing-grade':''}" id="init_${q}_${sid}">${c.initial!==null?c.initial:''}</td>
       <td class="cc ${isMissingGrade(c.quarterly)?'missing-grade':(c.quarterly?(c.quarterly>=75?'pass':'fail'): '')}" id="qg_${q}_${sid}">${c.quarterly||''}</td>
     </tr>`;
@@ -499,19 +499,44 @@ function renderGradeTable(){
     <div class="twrap"><table class="gtbl">${th}<tbody>${hr}${body}</tbody></table></div>`;
 }
 function setGr(name,q,cat,idx,val){
-  const cd=getCD();if(!cd.grades[q])cd.grades[q]={};
-  if(!cd.grades[q][name])cd.grades[q][name]={ww:Array(10).fill(null),pt:Array(10).fill(null),qa:null};
-  const v=val===''?null:parseFloat(val);
-  if(cat==='qa')cd.grades[q][name].qa=v;else cd.grades[q][name][cat][idx]=v;
+  const cd = getCD();
+  if(!cd.grades[q]) cd.grades[q] = {};
+  if(!cd.grades[q][name]) cd.grades[q][name] = {
+    ww:Array(10).fill(null),
+    pt:Array(10).fill(null),
+    qa:null
+  };
 
-  const c=calcQ(name,q);
-  const sid=name.replace(/[^a-zA-Z0-9]/g,'_');
+  const h = cd.hps[q] || { ww:Array(10).fill(null), pt:Array(10).fill(null), qa:null };
 
-  const u=(id,val,base='cc')=>{
-    const el=document.getElementById(id);
-    if(!el)return;
-    el.textContent=val!==null&&val!==undefined?val:'';
-    el.className=base+(isMissingGrade(val)?' missing-grade':'');
+  let maxHps = null;
+  if(cat === 'ww') maxHps = h.ww[idx];
+  else if(cat === 'pt') maxHps = h.pt[idx];
+  else if(cat === 'qa') maxHps = h.qa;
+
+  let v = val === '' ? null : parseFloat(val);
+
+  if(v !== null && !isNaN(v)){
+    if(v < 0) v = 0;
+    if(maxHps !== null && maxHps !== undefined && !isNaN(maxHps)){
+      if(v > maxHps) v = maxHps;
+    }
+  }
+
+  if(cat === 'qa') {
+    cd.grades[q][name].qa = v;
+  } else {
+    cd.grades[q][name][cat][idx] = v;
+  }
+
+  const c = calcQ(name,q);
+  const sid = name.replace(/[^a-zA-Z0-9]/g,'_');
+
+  const u = (id,val,base='cc')=>{
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.textContent = val!==null && val!==undefined ? val : '';
+    el.className = base + (isMissingGrade(val) ? ' missing-grade' : '');
   };
 
   u(`wwT_${q}_${sid}`,c.wwT,'cc bold');
@@ -526,13 +551,13 @@ function setGr(name,q,cat,idx,val){
   u(`qaWS_${q}_${sid}`,c.qaWS,'cc');
   u(`init_${q}_${sid}`,c.initial,'cc bold');
 
-  const gc=document.getElementById(`qg_${q}_${sid}`);
+  const gc = document.getElementById(`qg_${q}_${sid}`);
   if(gc){
-    gc.textContent=c.quarterly||'';
-    gc.className='cc';
+    gc.textContent = c.quarterly || '';
+    gc.className = 'cc';
     if(isMissingGrade(c.quarterly)){
       gc.classList.add('missing-grade');
-    }else if(c.quarterly>=75){
+    }else if(c.quarterly >= 75){
       gc.classList.add('pass');
     }else{
       gc.classList.add('fail');
@@ -541,6 +566,7 @@ function setGr(name,q,cat,idx,val){
 
   save();
 }
+
 function scrollToStu(name,q){
   const sid=name.replace(/[^a-zA-Z0-9]/g,'_');const el=document.getElementById(`trow_${q}_${sid}`);
   if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.style.outline='2px solid var(--blue)';setTimeout(()=>el.style.outline='',2000);}
@@ -619,38 +645,84 @@ function loadBulk(){
   rfBulkAnal(stu,q,cat,idx,hv);
 }
 function bPrev(inp,cid,hv){
-  const v=parseFloat(inp.value);
-  const c=document.getElementById(cid);
+  let v = parseFloat(inp.value);
+  if(!isNaN(v)){
+    if(v < 0) v = 0;
+    if(hv && v > hv) v = hv;
+    inp.value = v;
+  }
+  const c = document.getElementById(cid);
   if(!c)return;
-  c.textContent=(!isNaN(v)&&hv>0)?r2((v/hv)*100)+'%':'';
+  c.textContent = (!isNaN(v) && hv > 0) ? r2((v/hv)*100) + '%' : '';
 }
+
 function saveBulk(){
-  const inputs=document.querySelectorAll('#bulkTbl input[type="number"]');if(!inputs.length){toast('Load students first');return}
-  const cd=getCD();let saved=0;
+  const inputs = document.querySelectorAll('#bulkTbl input[type="number"]');
+  if(!inputs.length){
+    toast('Load students first');
+    return;
+  }
+
+  const cd = getCD();
+  let saved = 0;
+
   inputs.forEach(inp=>{
-    const name=inp.dataset.name;const q=parseInt(inp.dataset.q);const cat=inp.dataset.cat;const idx=parseInt(inp.dataset.idx);
-    const val=inp.value.trim()===''?null:parseFloat(inp.value);
-    if(!cd.grades[q])cd.grades[q]={};
-    if(!cd.grades[q][name])cd.grades[q][name]={ww:Array(10).fill(null),pt:Array(10).fill(null),qa:null};
-    if(cat==='QA'){
-  cd.grades[q][name].qa = val;
-}else{
-  const key = cat.toLowerCase(); // WW -> ww, PT -> pt
-  if(!cd.grades[q][name][key]) cd.grades[q][name][key] = Array(10).fill(null);
-  cd.grades[q][name][key][idx] = val;
-}
-    if(val!==null)saved++;
+    const name = inp.dataset.name;
+    const q = parseInt(inp.dataset.q);
+    const cat = inp.dataset.cat;
+    const idx = parseInt(inp.dataset.idx);
+
+    const h = cd.hps[q] || { ww:Array(10).fill(null), pt:Array(10).fill(null), qa:null };
+    let maxHps = null;
+
+    if(cat === 'WW') maxHps = h.ww[idx];
+    else if(cat === 'PT') maxHps = h.pt[idx];
+    else if(cat === 'QA') maxHps = h.qa;
+
+    let val = inp.value.trim() === '' ? null : parseFloat(inp.value);
+
+    if(val !== null && !isNaN(val)){
+      if(val < 0) val = 0;
+      if(maxHps !== null && maxHps !== undefined && !isNaN(maxHps) && val > maxHps){
+        val = maxHps;
+      }
+      inp.value = val;
+    }
+
+    if(!cd.grades[q]) cd.grades[q] = {};
+    if(!cd.grades[q][name]) cd.grades[q][name] = {
+      ww:Array(10).fill(null),
+      pt:Array(10).fill(null),
+      qa:null
+    };
+
+    if(cat === 'QA'){
+      cd.grades[q][name].qa = val;
+    }else{
+      const key = cat.toLowerCase();
+      if(!cd.grades[q][name][key]) cd.grades[q][name][key] = Array(10).fill(null);
+      cd.grades[q][name][key][idx] = val;
+    }
+
+    if(val !== null) saved++;
   });
+
   save();
-  const q=parseInt(document.getElementById('bQ').value);const gf=document.getElementById('bG').value;
-  const cat=document.getElementById('bC').value;const idx=parseInt(document.getElementById('bI').value);
-  const hv=cat==='WW'?cd.hps[q].ww[idx]:cat==='PT'?cd.hps[q].pt[idx]:cd.hps[q].qa;
-  let stu=[];
-  if(gf==='all'||gf==='male')stu.push(...cd.students.male.map(n=>({name:n,g:'male'})));
-  if(gf==='all'||gf==='female')stu.push(...cd.students.female.map(n=>({name:n,g:'female'})));
+
+  const q = parseInt(document.getElementById('bQ').value);
+  const gf = document.getElementById('bG').value;
+  const cat = document.getElementById('bC').value;
+  const idx = parseInt(document.getElementById('bI').value);
+  const hv = cat==='WW' ? cd.hps[q].ww[idx] : cat==='PT' ? cd.hps[q].pt[idx] : cd.hps[q].qa;
+
+  let stu = [];
+  if(gf==='all' || gf==='male') stu.push(...cd.students.male.map(n=>({name:n,g:'male'})));
+  if(gf==='all' || gf==='female') stu.push(...cd.students.female.map(n=>({name:n,g:'female'})));
+
   rfBulkAnal(stu,q,cat,idx,hv);
   toast(`✓ Saved — ${saved} scores, ${inputs.length-saved} blank`);
 }
+
 function rfBulkAnal(stu,q,cat,idx,hv){
   const cd=getCD();
   const scores=stu.map(s=>{const g=(cd.grades[q]&&cd.grades[q][s.name])||{};return cat==='WW'?(g.ww&&g.ww[idx]!==null?g.ww[idx]:null):cat==='PT'?(g.pt&&g.pt[idx]!==null?g.pt[idx]:null):(g.qa!==null&&g.qa!==undefined?g.qa:null);});
