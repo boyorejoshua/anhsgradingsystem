@@ -430,6 +430,10 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:.9rem 0}
 /* ── BULK ENTRY DARK-MODE FRIENDLY CELLS ── */
 .bulk-name.male { background:#eef5ff; }
 .bulk-name.female { background:#fff0f7; }
+.bulk-name {
+  font-size: 0.82rem !important;
+  line-height: 1.35;
+}
 
 body.dark-mode .bulk-name.male {
   background:#162338;
@@ -442,15 +446,15 @@ body.dark-mode .bulk-name.female {
 }
 
 .bulk-score-input {
-  width:68px;
-  height:29px;
-  border:none;
-  outline:none;
-  text-align:center;
-  font-family:'DM Mono', monospace;
-  font-size:11px;
-  background:transparent;
-  color:var(--tx);
+  width: 4.4rem;
+  height: 2rem;
+  border: none;
+  outline: none;
+  text-align: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.82rem;
+  background: transparent;
+  color: var(--tx);
 }
 
 .bulk-score-input:focus {
